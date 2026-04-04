@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import RecorderWidget from './RecorderWidget';
+import Footer from './Footer';
 
 export interface SeoPageData {
   slug: string;
@@ -99,7 +100,8 @@ export default function SeoPageLayout({ page }: { page: SeoPageData }) {
 
       </div>
 
-      <footer className="text-center py-4 text-slate-300 text-xs border-t border-slate-100 mt-auto bg-white">
+      <Footer />
+      <footer className="hidden">
         © {new Date().getFullYear()} QariAI
       </footer>
     </main>

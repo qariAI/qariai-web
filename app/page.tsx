@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import RecorderWidget from './components/RecorderWidget';
+import Footer from './components/Footer';
 
 export const metadata = {
   title: 'QariAI — Check Your Tajweed Instantly with AI',
@@ -72,9 +73,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="text-center py-4 text-slate-300 text-xs border-t border-slate-100">
-        © {new Date().getFullYear()} QariAI
-      </footer>
+      <Footer />
     </main>
   );
 }
