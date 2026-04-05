@@ -3,7 +3,7 @@ import { GoogleGenAI } from '@google/genai';
 
 // Simple in-memory IP rate limiter (resets on cold start)
 const ipMap = new Map<string, { count: number; resetAt: number }>();
-const FREE_USES = 3;
+const FREE_USES = 3; // TODO: restore to 3 before deploying
 const WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 function checkRateLimit(ip: string): boolean {
