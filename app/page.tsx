@@ -14,7 +14,7 @@ export default function Home() {
       <header className="bg-white border-b border-slate-100 shadow-sm sticky top-0 z-50">
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <Image src="/logo.png" alt="QariAI" width={80} height={80} className="object-contain flex-shrink-0 -m-3" />
+            <Image src="/logo.png" alt="QariAI" width={44} height={44} className="object-contain flex-shrink-0" />
             <span className="font-bold text-2xl tracking-tight">
               <span className="text-slate-800">Qari</span><span className="text-emerald-600">AI</span>
             </span>

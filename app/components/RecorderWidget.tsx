@@ -24,10 +24,39 @@ const SEVERITY_COLOR: Record<string, string> = {
 };
 
 const SEVERITY_BG: Record<string, string> = {
-  Major: 'bg-red-50 border-red-100',
-  Moderate: 'bg-amber-50 border-amber-100',
-  Minor: 'bg-sky-50 border-sky-100',
+  Major: 'bg-red-50 border-red-200',
+  Moderate: 'bg-amber-50 border-amber-200',
+  Minor: 'bg-sky-50 border-sky-200',
 };
+
+const SEVERITY_DOT: Record<string, string> = {
+  Major: 'bg-red-500',
+  Moderate: 'bg-amber-500',
+  Minor: 'bg-sky-400',
+};
+
+// Human-readable rule names
+const RULE_LABELS: Record<string, string> = {
+  ghunnah: 'Ghunnah (Nasal Hum)',
+  ikhfa: 'Ikhfā (Hidden Sound)',
+  iqlab: 'Iqlab (Conversion)',
+  idghaam_ghunnah: 'Idghaam with Ghunnah',
+  idghaam_wo_ghunnah: 'Idghaam without Ghunnah',
+  qalqalah: 'Qalqalah (Echo)',
+  madda_normal: 'Madd Tabee\'i (2 counts)',
+  madda_permissible: 'Madd Jaa\'iz (2–6 counts)',
+  madda_obligatory: 'Madd Waajib (4–5 counts)',
+  madda_necessary: 'Madd Laazim (6 counts)',
+  laam_shamsiyah: 'Laam Shamsiyyah',
+  ham_wasl: 'Hamzat ul-Wasl',
+  ikhfa_shafawi: 'Ikhfā Shafawi',
+  idghaam_shafawi: 'Idghaam Shafawi',
+  makhaarij: 'Makhaarij (Letter Origin)',
+};
+
+function ruleLabel(rule: string): string {
+  return RULE_LABELS[rule] ?? rule.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
 
 const ANALYSIS_STEPS = [
   'Transcribing your recitation…',
@@ -457,17 +486,23 @@ export default function RecorderWidget({ highlightRule }: { highlightRule?: stri
         {/* Tajweed feedback */}
         {visibleMistakes.length > 0 && (
           <div className="flex flex-col gap-2">
-            <p className="text-xs text-slate-400 uppercase tracking-widest">Patterns detected</p>
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-slate-400 uppercase tracking-widest">Tajweed patterns found</p>
+              <p className="text-xs text-slate-400">24 rules checked by AI</p>
+            </div>
             {visibleMistakes.map((m, i) => (
               <div
                 key={i}
-                className={`flex items-start gap-3 rounded-xl px-4 py-3 border ${SEVERITY_BG[m.severity]} ${highlightRule && m.rule === highlightRule ? 'ring-2 ring-emerald-400' : ''}`}
+                className={`rounded-xl border ${SEVERITY_BG[m.severity]} ${highlightRule && m.rule === highlightRule ? 'ring-2 ring-emerald-400' : ''}`}
               >
-                <span className={`text-sm font-bold mt-0.5 ${SEVERITY_COLOR[m.severity]}`}>✕</span>
-                <div>
-                  <p className="text-xs font-bold text-slate-600 uppercase tracking-wide">{m.rule.replace(/_/g, ' ')}</p>
-                  <p className="text-sm text-slate-500 mt-0.5">{m.issue}</p>
+                <div className="flex items-center gap-2 px-4 pt-3 pb-1">
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 ${SEVERITY_DOT[m.severity]}`} />
+                  <p className={`text-xs font-bold uppercase tracking-wide ${SEVERITY_COLOR[m.severity]}`}>
+                    {ruleLabel(m.rule)}
+                  </p>
+                  <span className={`ml-auto text-xs font-semibold ${SEVERITY_COLOR[m.severity]}`}>{m.severity}</span>
                 </div>
+                <p className="text-sm text-slate-600 px-4 pb-3 leading-snug">{m.issue}</p>
               </div>
             ))}
 
@@ -475,15 +510,15 @@ export default function RecorderWidget({ highlightRule }: { highlightRule?: stri
             {hiddenCount > 0 && (
               <div className="relative rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 overflow-hidden select-none">
                 <div className="flex items-start gap-3 blur-sm opacity-60 pointer-events-none">
-                  <span className="text-sm font-bold mt-0.5 text-amber-500">✕</span>
+                  <span className="w-2 h-2 rounded-full bg-amber-400 flex-shrink-0 mt-1" />
                   <div>
-                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wide">Idghaam Rule</p>
+                    <p className="text-xs font-bold text-slate-600 uppercase tracking-wide">Idghaam with Ghunnah</p>
                     <p className="text-sm text-slate-500 mt-0.5">Merging not applied — letters must blend fully here</p>
                   </div>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center gap-2">
+                <div className="absolute inset-0 flex items-center justify-center gap-2 bg-white/60">
                   <span className="text-base">🔒</span>
-                  <p className="text-xs font-bold text-slate-600">
+                  <p className="text-xs font-bold text-slate-700">
                     {hiddenCount} more pattern{hiddenCount > 1 ? 's' : ''} — unlock in the app
                   </p>
                 </div>
