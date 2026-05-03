@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import RecorderWidget from './RecorderWidget';
 import Footer from './Footer';
 
 export interface SeoPageData {
@@ -66,20 +65,35 @@ export default function SeoPageLayout({ page }: { page: SeoPageData }) {
           )}
         </section>
 
-        {/* Live Tool */}
+        {/* Practice this rule live — replaces the in-page Tajweed
+            checker. The live tool now lives in the QariAI mobile app;
+            this card routes users with intent (they searched for a
+            rule, they want to fix it) directly to the install. */}
         <section>
-          <div className="mb-4 text-center">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-600 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full">
-              Live AI Checker
-            </span>
+          <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6 text-center">
+            <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-3">
+              Practice this rule live
+            </p>
+            <p className="text-slate-700 text-base leading-relaxed">
+              Fix your <span className="capitalize font-semibold text-emerald-700">{page.slug.replace(/-/g, ' ')}</span> with live AI feedback in the QariAI app — plus memorize mode, streaks, and your Mosque Journey.
+            </p>
+            <a
+              href="https://play.google.com/store/apps/details?id=app.qari.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 hover:opacity-90 transition-opacity active:scale-[0.98]"
+            >
+              <Image
+                src="/google-play-badge.png"
+                alt="Get it on Google Play"
+                width={170}
+                height={52}
+                style={{ height: 'auto' }}
+                className="object-contain"
+              />
+            </a>
           </div>
-          <p className="text-slate-400 text-sm text-center mb-5">
-            Recite below — the AI will flag any {page.slug.replace(/-/g, ' ')} errors instantly.
-          </p>
-          <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6">
-            <RecorderWidget highlightRule={page.rule} />
-          </div>
-          <p className="text-slate-400 text-xs mt-3 text-center">3 free sessions per day · No account required</p>
+          <p className="text-slate-400 text-xs mt-3 text-center">Free to start · No account required · Free worldwide</p>
         </section>
 
         {/* Related pages */}
