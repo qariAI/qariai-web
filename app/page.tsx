@@ -2,8 +2,8 @@ import Image from 'next/image';
 import Footer from './components/Footer';
 
 export const metadata = {
-  title: 'QariAI — Check Your Tajweed Instantly with AI',
-  description: 'Recite a Quran verse and get instant AI-powered Tajweed feedback. Free to try. No account required.',
+  title: 'QariAI — Recite with the voice, breath, and ear of a master',
+  description: 'QariAI is the first AI coach that trains the three skills behind every great reciter — not just the rules. Free worldwide.',
 };
 
 export default function Home() {
@@ -35,14 +35,19 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Hero */}
+      {/* Hero — repositioned 2026-05-03. Pivot from "Tajweed checker"
+          framing to "voice / breath / ear" skill-coach framing. Maps
+          directly to the in-app surfaces (Recite / Nafs / Maqam) and
+          claims the category against rules-based competitors. The
+          line break sits between "breath," and "and ear of a master"
+          for cadence + cleaner mobile wrap. */}
       <section className="flex flex-col items-center text-center px-6 pt-14 pb-8 max-w-lg mx-auto w-full">
         <h1 className="text-3xl sm:text-4xl font-bold text-emerald-900 leading-tight mb-3">
-          Check your Tajweed<br />
-          <span className="text-emerald-600">instantly with AI</span>
+          Recite the Quran with the<br className="hidden sm:inline" />{' '}
+          <span className="text-emerald-600">voice, breath, and ear of a master.</span>
         </h1>
-        <p className="text-slate-500 text-base">
-          Recite any verse and get real-time correction in seconds.
+        <p className="text-slate-500 text-base leading-relaxed">
+          QariAI is the first AI coach that trains the three skills behind every great reciter — not just the rules.
         </p>
       </section>
 
@@ -111,44 +116,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Get the app — replaces the prior in-page Tajweed checker. The
-          live tool moved into the QariAI mobile app; this card is the
-          single download CTA for users who arrived expecting the web
-          analyzer. */}
-      <section className="px-6 pt-8 pb-6 max-w-lg mx-auto w-full">
-        <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6 text-center">
-          <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-3">
-            Available on Android · iOS soon
-          </p>
-          <p className="text-slate-700 text-base leading-relaxed">
-            Live tajweed feedback, memorize mode, streaks, and your Mosque Journey — all in the QariAI app.
-          </p>
-          <a
-            href="https://play.google.com/store/apps/details?id=app.qari.ai"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block mt-4 hover:opacity-90 transition-opacity active:scale-[0.98]"
-          >
-            <Image
-              src="/google-play-badge.png"
-              alt="Get it on Google Play"
-              width={170}
-              height={52}
-              style={{ height: 'auto' }}
-              className="object-contain"
-            />
-          </a>
-        </div>
-        <p className="text-slate-400 text-xs mt-3 text-center">
-          Free to start · No account required · Free worldwide
-        </p>
-      </section>
-
       {/* What's new — three cards summarizing the v1.18 ship beyond
           the Maqam spotlight above. Cream/light theme so it reads as
           part of the calm landing, with each card carrying a distinct
-          accent matching the in-app section it represents. */}
-      <section className="px-6 pb-10 max-w-lg mx-auto w-full">
+          accent matching the in-app section it represents.
+          Section reordered (2026-05-03) — was AFTER the Get-the-app
+          CTA, which asked for the install before showing what's new.
+          Now it sits between Maqam and Get-the-app so the buying
+          journey reads: hero → headline feature → other features →
+          install → trust. */}
+      <section className="px-6 pt-8 pb-6 max-w-lg mx-auto w-full">
         <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-600 mb-3 text-center">
           What&rsquo;s new
         </p>
@@ -213,13 +190,113 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust strip */}
+      {/* Social proof — real Play Store reviews. Sits between
+          What's-new (product proof) and Get-the-app (CTA) because
+          this is the highest-leverage spot for testimonials: the
+          user has just seen what the app does, this confirms other
+          reciters thought it was worth it. Replace the review text
+          with the latest from Play Console as more arrive; bump the
+          month label to keep it feeling current. */}
+      <section className="px-6 pt-4 pb-6 max-w-lg mx-auto w-full">
+        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-emerald-600 mb-1 text-center">
+          What reciters are saying
+        </p>
+        <p className="text-[11px] text-slate-400 text-center mb-4">
+          From real Play Store reviews
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {[
+            {
+              initials: 'MR',
+              quote: 'An incredible app. I’ve tested both Hifz and Tajweed mode — they work great. Set to Advanced, it works perfectly picking up any small mistakes.',
+              name: 'Matti-Ur Rehman',
+              meta: 'Google Play review · March 2026',
+            },
+            {
+              initials: 'SA',
+              quote: 'I think it is very nice and accurate, Mashallah.',
+              name: 'Sayeed Ahmed',
+              meta: 'Google Play review · April 2026',
+            },
+          ].map((r) => (
+            <div
+              key={r.name}
+              className="rounded-2xl bg-white border border-slate-100 p-4 flex flex-col gap-3"
+              style={{ boxShadow: '0 1px 2px rgba(15,40,20,0.04), 0 4px 12px rgba(15,40,20,0.04)' }}
+            >
+              {/* 5-star row — Play Store reviews here are 5-star;
+                  if a quoted review is ever sub-5 the stars below
+                  should reflect its rating exactly. */}
+              <div className="flex gap-0.5" aria-label="Five stars">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="#F59E0B" aria-hidden="true">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-[13px] text-slate-700 leading-relaxed">&ldquo;{r.quote}&rdquo;</p>
+              <div className="flex items-center gap-2.5 mt-auto">
+                <span
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-[11px] font-bold flex-shrink-0"
+                  style={{ background: '#DCFCE7', color: '#0F6E56' }}
+                  aria-hidden="true"
+                >
+                  {r.initials}
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[12px] font-bold text-slate-800 leading-tight">{r.name}</p>
+                  <p className="text-[10px] text-slate-400 leading-tight mt-0.5">{r.meta}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Get the app — single intentional install CTA, sits AFTER the
+          product proof (Maqam + What's new + social proof) so the
+          user has seen the value AND the validation before being
+          asked to convert. */}
+      <section className="px-6 pt-2 pb-10 max-w-lg mx-auto w-full">
+        <div className="bg-white rounded-2xl shadow-lg border border-emerald-100 p-6 text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-emerald-600 mb-3">
+            Available on Android · iOS soon
+          </p>
+          <p className="text-slate-700 text-base leading-relaxed">
+            Live tajweed feedback, memorize mode, streaks, and your Mosque Journey — all in the QariAI app.
+          </p>
+          <a
+            href="https://play.google.com/store/apps/details?id=app.qari.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block mt-4 hover:opacity-90 transition-opacity active:scale-[0.98]"
+          >
+            <Image
+              src="/google-play-badge.png"
+              alt="Get it on Google Play"
+              width={170}
+              height={52}
+              style={{ height: 'auto' }}
+              className="object-contain"
+            />
+          </a>
+        </div>
+        <p className="text-slate-400 text-xs mt-3 text-center">
+          Free to start · No account required · Free worldwide
+        </p>
+      </section>
+
+      {/* Trust strip — credibility, not capabilities (was "24 rules /
+          AI / < 10s" which only restated what the page already said).
+          Real launch-day numbers carry far more weight than feature
+          claims. The install count is from Play Console; bump as the
+          number grows. */}
       <section className="border-t border-slate-100 bg-white px-6 py-6">
         <div className="max-w-lg mx-auto grid grid-cols-3 gap-4 text-center">
           {[
+            { stat: '935+', label: 'Reciters installed worldwide' },
             { stat: '24', label: 'Tajweed rules checked' },
-            { stat: 'AI', label: 'Powered by Gemini' },
-            { stat: '< 10s', label: 'Instant feedback' },
+            { stat: 'Gemini AI', label: 'Real-time analysis' },
           ].map((item) => (
             <div key={item.stat}>
               <p className="text-emerald-600 font-bold text-lg">{item.stat}</p>

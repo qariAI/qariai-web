@@ -115,9 +115,6 @@ export default function SeoPageLayout({ page }: { page: SeoPageData }) {
       </div>
 
       <Footer />
-      <footer className="hidden">
-        © {new Date().getFullYear()} QariAI
-      </footer>
     </main>
   );
 }
